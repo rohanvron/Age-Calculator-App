@@ -3,7 +3,7 @@ import { useSpring, animated } from "@react-spring/web";
 const AgeDisplay = ({ label, value }) => {
   const isValueZero = value === 0;
   const formattedValue = value < 10 && value !== 0 ? `0${value}` : value;
-  const displayValue = value === 0 ? "--" : formattedValue;
+  const displayValue = value === 0 ? "- -" : formattedValue;
 
   // spring animation
   const props = useSpring({ number: value, from: { number: 0 } });

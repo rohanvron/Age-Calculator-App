@@ -104,7 +104,7 @@ const AgeForm = ({ setAgeResult }) => {
                 name="month" 
                 id="month" 
                 label="month" 
-                placeholder="YY" 
+                placeholder="MM" 
                 value={month} 
                 onChange={(e) => setMonth(e.target.value)}
                 error={errors.month}   
