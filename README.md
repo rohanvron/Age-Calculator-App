@@ -3,10 +3,8 @@
 This repository contains the source code for an age calculator application that fulfills the requirements of the Frontend Mentor challenge: "View an age in years, months, and days after submitting a valid date through the form."
 
 <p align="center">
-  <img  src="./src/assets/images/ui1.PNG>
+  <img  src="./src/assets/images/ui1.PNG">
 </p>
-
-Check Out the <a href="https://rohanvron.github.io/Age-Calculator-App/"> DEMO </a>
 
 # The challenge
 
@@ -24,7 +22,7 @@ Users should be able to:
 - **Bonus**: See the age numbers animate to their final number when the form is submitted
 
 <p align="center">
-  <img  src="./src/assets/images/ui2.PNG>
+  <img  src="./src/assets/images/ui2.PNG">
 </p>
 
 **Features:**
