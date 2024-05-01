@@ -50,8 +50,8 @@ const AgeForm = ({ setAgeResult }) => {
 
         // year validation
         if (!year) tempErrors.year = "This field is required";
-        else if (!/^[0-9]{4}$/.test(year))
-            tempErrors.year = "Year must be 4 digits";
+        else if (!/^[0-9]+$/.test(year))
+            tempErrors.year = "Invalid year format";
         else if (parseInt(year) > currentYear )
             tempErrors.year = "Must be in the past";
             else if (!validateDate(day, month, year))
@@ -64,27 +64,39 @@ const AgeForm = ({ setAgeResult }) => {
 
     // to calculate age based on inputs
     const calculateAge = (day, month, year) => {
-        const birthDate = new Date(year, month - 1, day);
-        const currentDate = new Date();
-
-        let ageYear = currentDate.getFullYear() - birthDate.getFullYear();
-        let ageMonth = currentDate.getMonth() - birthDate.getMonth();
-        let ageDay = currentDate.getDate() - birthDate.getDate();
-
-        if (ageDay < 0) {
-            ageMonth--;
-            ageDay += new Date(year, month, 0).getDate();
+        if (day.toString().length === 1) {
+            day = '0' + day;
         }
-
-        if (ageMonth < 0) {
-            ageYear--;
-            ageMonth += 12;
+    
+        if (month.toString().lenghth === 1) {
+            month = '0' + month;
         }
-        
+        // let dateOfBith = 'YYYY-MM-DD';
+    
+        let dateOfBirth = `${year}-${month}-${day}`;
+    
+        var today = new Date();
+        var birthDate = new Date(dateOfBirth);
+    
+        var years = today.getFullYear() - birthDate.getFullYear();
+        var months = today.getMonth() - birthDate.getMonth();
+        var days = today.getDate() - birthDate.getDate();
+    
+        if (months < 0 || (months === 0 && days < 0)) {
+            years--;
+            months += 12;
+        }
+    
+        if (days < 0) {
+            var prevMonth = new Date(today.getFullYear(), today.getMonth() - 1, 0);
+            days += prevMonth.getDate();
+            months--;
+        }
+    
         return {
-            years: ageYear,
-            months: ageMonth,
-            days: ageDay,
+            years: years,
+            months: months,
+            days: days,
         };
     };
 
@@ -92,35 +104,29 @@ const AgeForm = ({ setAgeResult }) => {
         <form method="post" onSubmit={handleSubmit}>
             <div className="flex gap-4 text-smokey-grey font-bold sm:gap-8">
                 <AgeInput 
-                name="day" 
-                id="day" 
-                label="day" 
+                name="day"  
                 placeholder="DD" 
                 value={day} 
                 onChange={(e) => setDay(e.target.value)}
                 error={errors.day}   
                 />
                 <AgeInput 
-                name="month" 
-                id="month" 
-                label="month" 
+                name="month"  
                 placeholder="MM" 
                 value={month} 
                 onChange={(e) => setMonth(e.target.value)}
                 error={errors.month}   
                 />
                 <AgeInput 
-                name="year" 
-                id="year" 
-                label="year" 
+                name="year"  
                 placeholder="YYYY" 
                 value={year} 
                 onChange={(e) => setYear(e.target.value)}
                 error={errors.year}   
                 />
             </div>
-            <button type="submit" className="btn">
-                <img src={IconArrow} alt="submit" className="h-6 lg:h-11"></img>
+            <button type="submit" className="btn" aria-label="Calculate your age">
+                <img src={IconArrow} alt="" className="h-6 lg:h-11"></img>
             </button>
         </form>
     );
